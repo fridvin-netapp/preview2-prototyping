@@ -14,6 +14,9 @@ use core::slice;
 use poll::Pollable;
 use wasi::*;
 
+mod lib_ext;
+pub use lib_ext::*;
+
 #[cfg(all(feature = "command", feature = "reactor"))]
 compile_error!("only one of the `command` and `reactor` features may be selected at a time");
 
@@ -1871,7 +1874,7 @@ pub unsafe extern "C" fn random_get(buf: *mut u8, buf_len: Size) -> Errno {
         ERRNO_SUCCESS
     }
 }
-
+/*
 /// Accept a new incoming connection.
 /// Note: This is similar to `accept` in POSIX.
 #[no_mangle]
@@ -1914,7 +1917,7 @@ pub unsafe extern "C" fn sock_send(
 pub unsafe extern "C" fn sock_shutdown(fd: Fd, how: Sdflags) -> Errno {
     unreachable!()
 }
-
+*/
 fn datetime_to_timestamp(datetime: filesystem::Datetime) -> Timestamp {
     u64::from(datetime.nanoseconds).saturating_add(datetime.seconds.saturating_mul(1_000_000_000))
 }
